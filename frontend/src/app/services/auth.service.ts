@@ -30,12 +30,15 @@ export class AuthService {
     return false
   }
 
-  registerUser(payload){
+  registerUser(payload,isProfessor){
     var body = {
+      first_name : payload.first_name,
+      last_name : payload.last_name,
       email : payload.email,
-      password : payload.password
+      password : payload.password,
+      isProfessor : isProfessor
     }
-    return this.http.post(environment.apiUrl+"user/register",body).pipe()
+    return this.http.post(environment.apiUrl+"users",body).pipe()
   }
 
   logout(){

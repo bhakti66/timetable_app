@@ -7,7 +7,7 @@ export class Login {
 
 export class RegisterUser {
     static readonly type = "[Auth] RegisterUser"
-    constructor(public payload: User) { }
+    constructor(public payload: User,public isProfessor: boolean) { }
 }
 
 export class CurrentUser{

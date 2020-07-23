@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
         <div class="col-lg">
-            <form (ngSubmit)="saveDetails()" [formGroup]="profForm">
+            <form (ngSubmit)="addProfessor()" [formGroup]="profForm">
                 <div class="form-group">
                     <label for="title">First Name</label>
                     <input type="text" class="form-control" id="fname" [formControl]="profForm.controls['first_name']">

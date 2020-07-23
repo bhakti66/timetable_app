@@ -3,5 +3,6 @@ import { Time } from '@angular/common';
 import { Lecture } from '../../models/lectures';
 
 export class LectureStateModel {
-  lectures?: Lecture[]
+  lectures?: Lecture[];
+  lecture?: Lecture
 }

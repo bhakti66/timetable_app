@@ -8,6 +8,7 @@ import { Lecture } from '../../models/lectures';
 export class LectureSelectors {
     @Selector([LectureState])
     static getLectures(state: LectureStateModel): Lecture[] {
+      console.log('state ',state)
       return state.lectures;
     }
   

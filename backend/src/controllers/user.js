@@ -26,10 +26,16 @@ module.exports = {
     async newUser(req, res){
         if(!has(req.body, ['first_name', 'email', 'password']))
             throw {code: status.BAD_REQUEST, message: 'You must specify the name and email'};
-
-        let { first_name, last_name, email, password, roleId } = req.body;
-        await userModel.create({ first_name, last_name, email, password, roleId });
-
+        let role;
+        if (req.body.isProfessor ){
+            role = await roleModel.findOne({where:{role_name:'professor'}})
+        }
+        else{
+            role = await roleModel.findOne({where:{role_name:'student'}})
+        }
+        let obj = req.body
+        obj['roleId'] = role.id
+        await userModel.create(obj);
         res.json({status: true, message: 'User Added'});
     },
     async updateUser(req, res){
@@ -75,5 +81,10 @@ module.exports = {
                 res.json({status: false, message: 'User not Found'});
             }
         });
+    },
+    async getProfessors(req, res){
+        role = await roleModel.findOne({where:{role_name:'professor'}})
+        let data =  await userModel.findAll({where:{roleId:role.id}})
+        res.json({status: true, message: 'Returning professors', data});
     }
 }

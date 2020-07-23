@@ -10,6 +10,8 @@ router.get('/api/users/:id', user.getUserById);
 
 router.get('/api/users', user.getUsers);
 
+router.get('/api/professors', user.getProfessors);
+
 router.post('/api/users', user.newUser);
 
 router.delete('/users/:id', user.deleteUser);

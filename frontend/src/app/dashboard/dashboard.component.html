@@ -8,10 +8,32 @@
         </div>
     </div>
     <div class="row">
+        <div class="col">
+            Filter By Professors :
+            <select name="ddProfessor" id="ddProfessor" class="browser-default custom-select" (change)="filterByProf()" [(ngModel)]="selectedProf">
+                <option value="all" selected>All</option>
+                <option *ngFor="let prof of professors" value="{{prof.id}}">{{prof.first_name }} {{prof.last_name }}</option>
+            </select>
+        </div>
+        <div class="col">
+            <div class="col">
+                Filter By Date :
+            </div>
+            <div class="col">
+                <input type="text" ngbDatepicker #d="ngbDatepicker" (ngModelChange)="filterByDate($event)" [(ngModel)]="selectedDate"/>
+                <button type="button" (click)="d.toggle()">Select</button>
+                <button type="button" (click)="filterByDate()">Clear</button>
+            </div>
+            </div>
+    </div>
+    <div class="row">
         <div class="col-lg">
             <h3>Time Table</h3>
             <table class="table">
                 <tr>
+                    <th>
+                        Sr. No
+                    </th>
                     <th>
                         Class
                     </th>
@@ -28,7 +50,10 @@
                         Time
                     </th>
                 </tr>
-                <tr *ngFor="let lec of lectures">
+                <tr *ngFor="let lec of filteredLectures| slice: (page-1) * pageSize : (page-1) * pageSize + pageSize ;let i=index">
+                    <td>
+                        {{i+1}}
+                    </td>
                     <td>
                         {{lec.classes.class_name}} {{lec.classes.division}}
                     </td>
@@ -48,22 +73,36 @@
             </table>
         </div>
     </div>
+    <!-- pagination -->
+    <div class="row">
+        <div class="col">
+            <ngb-pagination [collectionSize]="filteredLectures.length" [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false"
+                [boundaryLinks]="true"></ngb-pagination>
+        </div>
+        <div class="col">
+            <select style="width: auto" name="pageSize" [(ngModel)]="pageSize">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="{{filteredLectures.length}}">All</option>
+            </select>
+    
+        </div>
+    </div>
+    <!-- end of pagination -->
 </div>
 <!-- modal popup -->
 <ng-template #addProfModal let-modal>
-        <div class="modal-header">
-            <h4 class="modal-title" id="modal-basic-title" *ngIf="isAddProf">Add Professor</h4>
-            <h4 class="modal-title" id="modal-basic-title" *ngIf="isAddLec">Add Lecture</h4>
-            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-                <span aria-hidden="true">×</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <app-add-professor *ngIf="isAddProf"></app-add-professor>
-            <app-add-lecture *ngIf="isAddLec"></app-add-lecture>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ok</button>
-        </div>
-    </ng-template>
-    <!-- end of modal popup -->
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title" *ngIf="isAddProf">Add Professor</h4>
+        <h4 class="modal-title" id="modal-basic-title" *ngIf="isAddLec">Add Lecture</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <app-add-professor [modalReference]="modalReference" *ngIf="isAddProf"></app-add-professor>
+        <app-add-lecture [modalReference]="modalReference" *ngIf="isAddLec"></app-add-lecture>
+    </div>
+</ng-template>
+<!-- end of modal popup -->
