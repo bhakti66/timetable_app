@@ -1,13 +1,20 @@
 const status = require('http-status');
 
 const lectureModel = require('../models/lectures');
+const subjectModel = require('../models/subjects')
+const classModel = require('../models/classes')
+const userModel = require('../models/users')
 const has = require('has-keys');
 const moment = require('moment')
 const { Op } = require('sequelize')
 
 module.exports = {
     async getLectures(req, res){
-        let data =  await lectureModel.findAll()
+        let data =  await lectureModel.findAll({include: [
+            { model: subjectModel, as: 'subject'},
+            { model: classModel, as: 'classes'},
+            { model: userModel, as: 'professor'}
+        ]})
         res.json({status: true, message: 'Returning lectures', data});
 
     },

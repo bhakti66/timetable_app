@@ -3,7 +3,7 @@ const Sequelize = require('sequelize');
 
 const db = require('./database.js');
 const bcrypt = require("bcrypt");
-
+const roles = require("./roles")
 const users = db.define('tblUsers', {
     id: {
         primaryKey: true,
@@ -23,7 +23,7 @@ const users = db.define('tblUsers', {
     },
     roleId: {
         type: Sequelize.INTEGER,
-        foreignKey: 'fk_role_id'
+        foreignKey: 'id'
     }
 }, {
         instanceMethods: {
@@ -47,5 +47,5 @@ users.beforeCreate(function (user, options) {
 users.prototype.validatePassword = function (password) {
     return bcrypt.compareSync(password, this.password);
 };
-
+users.belongsTo(roles,{ foreignKey: 'roleId', as:"role" })
 module.exports = users;

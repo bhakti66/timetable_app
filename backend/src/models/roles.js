@@ -14,5 +14,4 @@ const roles = db.define('tblRoles', {
     }
 })
 
-
 module.exports = roles;

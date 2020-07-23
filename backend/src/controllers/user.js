@@ -1,10 +1,8 @@
 const status = require('http-status');
-
 const userModel = require('../models/users.js');
-
-
+const roleModel = require('../models/roles');
 const has = require('has-keys');
-
+const auth = require('../util/auth')
 
 module.exports = {
     async getUserById(req, res){
@@ -57,10 +55,16 @@ module.exports = {
     async validateUser(req,res){
         if(!has(req.body, ['email', 'password']))
             throw {code: status.BAD_REQUEST, message: 'You must specify the email and password'};
-        userModel.findOne({where: { email: req.body.email }}).then((user)=>{
+        userModel.findOne({where: { email: req.body.email },include: [
+            { model: roleModel, as: 'role'}
+        ]}).then((user)=>{
             if (user!=null){
                 if(user.validatePassword(req.body.password)){
-                    
+                    user = user.toJSON()
+                    token = auth.encode(user)
+                    delete user.password
+                    delete user.roleId
+                    user.token = token
                     res.json({status: true, message: 'User Found',user});
                 }
                 else{

@@ -13,7 +13,7 @@ const helmet = require('helmet');
 
 
 const logger = require('./util/logger');
-
+const auth = require('./util/auth')
 // Load .env Enviroment Variables to process.env
 
 require('mandatoryenv').load([
@@ -46,6 +46,26 @@ app.use(helmet());
 // This middleware adds the json header to every response
 app.use('*', (req, res, next) => {
     res.setHeader('Content-Type', 'application/json');
+    
+    if(req.method==="OPTIONS"){
+        res.sendStatus(200);
+    }
+    else if (auth.isTokenRequired(req.method, req.params['0'])) {
+        if (!req.headers.token) {
+            var err = new Error('Authentication required');
+            next(err)
+        }
+        else {
+            isValid = auth.verify(req.headers.token)
+            if (!isValid) {
+                var err = new Error('Invalid token');
+                // next(err)
+                res
+                .status(401)
+                .json( {status: false, message: 'Invalid Token'} );
+            }
+        }
+    }
     next();
 })
 
