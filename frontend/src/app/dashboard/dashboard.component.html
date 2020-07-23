@@ -1,4 +1,12 @@
 <div class="container">
+    <div class="row" *ngIf="authService.isAdmin()">
+        <div class="col">
+            <button type="button" class="col btn btn-primary" (click)="open(addProfModal,'prof')">Add Professor</button>
+        </div>
+        <div class="col">
+            <button type="button" class="col btn btn-primary" (click)="open(addProfModal,'lec')">Add Lectures</button>
+        </div>
+    </div>
     <div class="row">
         <div class="col-lg">
             <h3>Time Table</h3>
@@ -9,6 +17,9 @@
                     </th>
                     <th>
                         Subject
+                    </th>
+                    <th>
+                        Professor
                     </th>
                     <th>
                         Date
@@ -25,6 +36,9 @@
                         {{lec.subject.sub_name}}
                     </td>
                     <td>
+                        {{lec.professor.first_name}} {{lec.professor.last_name}}
+                    </td>
+                    <td>
                         {{lec.lec_date}}
                     </td>
                     <td>
@@ -35,3 +49,21 @@
         </div>
     </div>
 </div>
+<!-- modal popup -->
+<ng-template #addProfModal let-modal>
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title" *ngIf="isAddProf">Add Professor</h4>
+            <h4 class="modal-title" id="modal-basic-title" *ngIf="isAddLec">Add Lecture</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <app-add-professor *ngIf="isAddProf"></app-add-professor>
+            <app-add-lecture *ngIf="isAddLec"></app-add-lecture>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ok</button>
+        </div>
+    </ng-template>
+    <!-- end of modal popup -->

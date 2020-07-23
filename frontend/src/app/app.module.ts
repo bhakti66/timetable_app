@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'; 
 import { NgxsModule } from "@ngxs/store";
 import { Reducers } from "./store";
@@ -28,6 +29,7 @@ import { AuthService } from './services/auth.service';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    NgbModule,
     FormsModule,
     ReactiveFormsModule,
     NgxsModule.forRoot(Reducers),

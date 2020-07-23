@@ -22,38 +22,12 @@ export class AuthService {
     return false
   }
 
-  login(email,password) {
-    var body = {
-      email: email,
-      password: password
+  isAdmin(){
+    let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    if (currentUser.user.role['role_name']=="admin") {
+      return true
     }
-    return this.http
-      .post<any>(environment.apiUrl+`users/login`, body)
-      .pipe(
-        map(result => {
-          console.log('result.. ',result)
-          // login successful if there's a jwt token in the response
-          if (result && result.token) {
-            // store user details and jwt token in local storage to keep user logged in between page refreshes
-            localStorage.setItem("currentUser", JSON.stringify(result));
-          }
-
-          // return result;
-        })
-      );
-  }
-
-  getCurrentUserDetails(email){
-    var body = {
-      email: email,
-    }
-    return this.http
-      .post<any>(environment.apiUrl+`user/currentDetails`, body)
-      .pipe(
-        map(result => {
-          return result
-        })
-      );
+    return false
   }
 
   registerUser(payload){

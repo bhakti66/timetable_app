@@ -28,7 +28,6 @@ export class AuthState {
       .post<any>(environment.apiUrl + `users/login`, body)
       .pipe(
         map(result => {
-          console.log('result--- ',result)
           // login successful if there's a jwt token in the response
           if (result && result.user.token) {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
@@ -40,16 +39,6 @@ export class AuthState {
       );
   }
 
-  @Action(CurrentUser)
-  getCurrentUser(ctx:StateContext<AuthStateModel>,{payload}:CurrentUser){
-    return this.authService.getCurrentUserDetails(payload).pipe(
-      tap(results => {
-        ctx.patchState({ user: results });
-      }, (err) => {
-        ctx.patchState({ user: {} });
-      })
-    );
-  }
 
   @Action(RegisterUser)
   RegisterUser(ctx:StateContext<AuthStateModel>,{payload}:RegisterUser){

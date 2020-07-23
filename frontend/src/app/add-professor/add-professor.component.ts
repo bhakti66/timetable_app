@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-professor',
@@ -6,10 +7,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./add-professor.component.scss']
 })
 export class AddProfessorComponent implements OnInit {
-
-  constructor() { }
+  profForm: FormGroup;
+  constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    this.profForm = this.formBuilder.group({
+      first_name: ["", [Validators.required]],
+      last_name: ["", [Validators.required]],
+      email: ["", [Validators.required]],
+      password: ["", [Validators.required]],
+    });
   }
 
 }

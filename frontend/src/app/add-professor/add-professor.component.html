@@ -1,1 +1,25 @@
-<p>add-professor works!</p>
+<div class="container">
+    <div class="row">
+        <div class="col-lg">
+            <form (ngSubmit)="saveDetails()" [formGroup]="profForm">
+                <div class="form-group">
+                    <label for="title">First Name</label>
+                    <input type="text" class="form-control" id="fname" [formControl]="profForm.controls['first_name']">
+                </div>
+                <div class="form-group">
+                    <label for="title">Last Name</label>
+                    <input type="text" class="form-control" id="lname" [formControl]="profForm.controls['last_name']">
+                </div>
+                <div class="form-group">
+                    <label for="title">Email</label>
+                    <input type="email" class="form-control" id="email" [formControl]="profForm.controls['email']">
+                </div>
+                <div class="form-group">
+                    <label for="title">Password</label>
+                    <input type="password" class="form-control" id="password" [formControl]="profForm.controls['password']">
+                </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </form>
+        </div>
+    </div>
+</div>
