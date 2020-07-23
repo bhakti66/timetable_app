@@ -1,0 +1,37 @@
+<div class="container">
+    <div class="row">
+        <div class="col-lg">
+            <h3>Time Table</h3>
+            <table class="table">
+                <tr>
+                    <th>
+                        Class
+                    </th>
+                    <th>
+                        Subject
+                    </th>
+                    <th>
+                        Date
+                    </th>
+                    <th>
+                        Time
+                    </th>
+                </tr>
+                <tr *ngFor="let lec of lectures">
+                    <td>
+                        {{lec.classes.class_name}} {{lec.classes.division}}
+                    </td>
+                    <td>
+                        {{lec.subject.sub_name}}
+                    </td>
+                    <td>
+                        {{lec.lec_date}}
+                    </td>
+                    <td>
+                        {{lec.lec_start_time}}
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
