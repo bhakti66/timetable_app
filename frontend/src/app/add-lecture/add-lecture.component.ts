@@ -29,17 +29,15 @@ export class AddLectureComponent implements OnInit {
     });
 
     this.lectureService.getClasses().subscribe((results)=>{
-      console.log('classes results ',results)
+
       this.classes = results['data']
     })    
 
     this.lectureService.getSubjects().subscribe((results)=>{
-      console.log('subject results ',results)
       this.subjects = results['data']
     })
 
     this.lectureService.getProfessors().subscribe((results)=>{
-      console.log('professors results ',results)
       this.professors = results['data']
     })
   }

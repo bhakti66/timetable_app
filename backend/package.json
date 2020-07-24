@@ -28,8 +28,10 @@
         "moment": "^2.27.0",
         "morgan": "^1.9.1",
         "mysql2": "^1.7.0",
-        "nodemon": "^2.0.4",
         "rotating-file-stream": "^1.4.6",
         "sequelize": "^5.19.2"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.4"
     }
 }
