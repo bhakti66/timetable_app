@@ -12,7 +12,7 @@ router.get('/api/users', user.getUsers);
 
 router.get('/api/professors', user.getProfessors);
 
-router.post('/api/users', user.newUser);
+router.post('/api/users/register', user.newUser);
 
 router.delete('/users/:id', user.deleteUser);
 

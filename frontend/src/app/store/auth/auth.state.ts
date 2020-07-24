@@ -42,7 +42,6 @@ export class AuthState {
 
   @Action(RegisterUser)
   RegisterUser(ctx:StateContext<AuthStateModel>,payload:RegisterUser,isProfessor:boolean){
-    console.log('payload --',payload,isProfessor)
     return this.authService.registerUser(payload.payload,payload.isProfessor).pipe(
       tap(results=>{
         ctx.patchState({ user: results});

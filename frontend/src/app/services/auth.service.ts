@@ -38,7 +38,7 @@ export class AuthService {
       password : payload.password,
       isProfessor : isProfessor
     }
-    return this.http.post(environment.apiUrl+"users",body).pipe()
+    return this.http.post(environment.apiUrl+"users/register",body).pipe()
   }
 
   logout(){
