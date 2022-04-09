@@ -25,7 +25,7 @@
         "jsonwebtoken": "^8.5.1",
         "mandatoryenv": "^1.1.1",
         "module-alias": "^2.2.2",
-        "moment": "^2.27.0",
+        "moment": "^2.29.2",
         "morgan": "^1.9.1",
         "mysql2": "^1.7.0",
         "rotating-file-stream": "^1.4.6",
